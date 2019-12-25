@@ -2,26 +2,10 @@
 
 
 {% block main %}
-<!-- <div class="container">
-    <form action="" method="POST">
-        <div class="input-group">
-            <div class="response_block">
-                <input type="text" name="response" id="">    
-            </div>
-            <div class="response_block">
-                <input type="text" name="text" id="">
-            </div>
-            <div class="row">
-                <input class="col-6" type="text" name="region"></input>
-                <input class="col-6" type="text" name="limit"></input>
-            </div>
-        </div>
-    </form>
-</div> -->
-
 <div class="container">
     <div class="from-group">
         <form action="" class="row" method="POST">
+            {% csrf_token %}
             <div class="col-12 id_response my-2">
                 <textarea type="text" name="response" id="" class="form-control"></textarea>
             </div>
