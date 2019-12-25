@@ -1,4 +1,5 @@
 import time
+import os.path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -7,13 +8,16 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
+BASE_DIR = os.path.dirname(__file__)
 
 # GLOBAL VALUES USED IN SCRIPT
 url = "https://www.linkedin.com/uas/login?goback=&trk=hb_signin"
 url_2 = 'https://www.linkedin.com/search/results/people/?facetNetwork=%5B%22S%22%5D&keywords=microsoft&origin=FACETED_SEARCH'
 base_search_URL = 'https://www.linkedin.com/search/results/people/?facetNetwork=%5B"S"%5D&keywords='
 # Webdriver Paths
-Chromedriver_Path = r'C:\Users\user\Documents\LinkedInMailer\chromedriver.exe'
+
+# Chromedriver_Path = r'C:\Users\user\Documents\LinkedInMailer\chromedriver.exe'
+Chromedriver_Path = os.path.join(BASE_DIR, 'chromedriver.exe')
 Chrome_Options = Options().add_argument('--test-type')
 
 
