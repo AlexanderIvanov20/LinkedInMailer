@@ -67,6 +67,7 @@ def send_invites(region, keyword, username_user, password_user):
 
 
 def send_message(start_user: int, username_user, password_user, message):
+    start_user = int(start_user)
     driver_path = os.path.join('chromedriver.exe')
     driver = webdriver.Chrome(driver_path)
     driver.set_window_size(1280, 720)
@@ -125,13 +126,13 @@ def send_message(start_user: int, username_user, password_user, message):
     driver.close()
 
 
-def reply_on_invites(linkedin):
-    invitationals = linkedin.get_invitations()
-    print('Point on invites: ', invitationals[0])
+def reply_on_invites(username_user, password_user):
+    linked = Linkedin(username_user, password_user)
+    invitationals = linked.get_invitations()
 
     for invite in invitationals:
-        linkedin.reply_invitation(invitation_entity_urn=invite['entityUrn'],
-                                  invitation_shared_secret=invite['sharedSecret'])
+        linked.reply_invitation(invitation_entity_urn=invite['entityUrn'],
+                                invitation_shared_secret=invite['sharedSecret'])
 
 
 # send_message(3, 'alexander.ivanov.289@gmail.com', 'Domestos03', '''Добрый день!

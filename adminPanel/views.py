@@ -19,8 +19,6 @@ class Index(View):
         data = request.POST
 
         response = data.get('response')
-        # kwards = data.get('kwards')
-        # region = data.get('region')
         limit = data.get('limit')
         email = data.get('email')
         password = data.get('password')
@@ -28,8 +26,6 @@ class Index(View):
         try:
             dump = {
                 'response': response,
-                # 'kwards': kwards,
-                # 'region': region,
                 'limit': limit,
                 'email': email,
                 'password': password
@@ -45,3 +41,69 @@ class Index(View):
             print('Exception has occured')
             print(e)
         return render(request, 'adminPanel/panel.html')
+
+
+class SendInvites(View):
+    def get(self, request):
+        context = {
+            'title': 'Главная'
+        }
+        return render(request, 'adminPanel/panel.html', context)
+
+    def post(self, request):
+        data = request.POST
+
+        kwards = data.get('kwards')
+        region = data.get('region')
+        email = data.get('email')
+        password = data.get('password')
+
+        try:
+            dump = {
+                'kwards': kwards,
+                'region': region,
+                'email': email,
+                'password': password
+            }
+            savepath = os.path.join(settings.BASE_DIR, 'dump.json')
+            with open(savepath, 'w') as dumpfile:
+                json.dump(dump, dumpfile, indent=4)
+
+            click.send_invites(region, kwards, email, password)
+        except ValueError:
+            print('ValueError')
+        except Exception as e:
+            print('Exception has occured')
+            print(e)
+        return redirect('index')
+
+
+class ReplyInvites(View):
+    def get(self, request):
+        context = {
+            'title': 'Главная'
+        }
+        return render(request, 'adminPanel/panel.html', context)
+
+    def post(self, request):
+        data = request.POST
+
+        email = data.get('email')
+        password = data.get('password')
+
+        try:
+            dump = {
+                'email': email,
+                'password': password
+            }
+            savepath = os.path.join(settings.BASE_DIR, 'dump.json')
+            with open(savepath, 'w') as dumpfile:
+                json.dump(dump, dumpfile, indent=4)
+
+            click.reply_on_invites(email, password)
+        except ValueError:
+            print('ValueError')
+        except Exception as e:
+            print('Exception has occured')
+            print(e)
+        return redirect('index')
