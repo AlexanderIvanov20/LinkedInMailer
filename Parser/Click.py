@@ -10,7 +10,7 @@ import os
 def send_invites(region, keyword, username_user, password_user):
     driver_path = os.path.join('chromedriver.exe')
     driver = webdriver.Chrome(driver_path)
-    driver.set_window_size(1280, 720)
+    driver.set_window_size(1600, 900)
     driver.get(
         'https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin')
 
@@ -33,7 +33,6 @@ def send_invites(region, keyword, username_user, password_user):
 
         pages = int(driver.find_element_by_xpath(
             '//*[@class="ember-view"]/artdeco-pagination/ul/li[10]/button/span').text)
-        print(pages)
 
         for page in range(1, pages + 1):
             driver.get(
@@ -53,8 +52,7 @@ def send_invites(region, keyword, username_user, password_user):
                     current = li.find_element_by_css_selector(
                         '.search-entity.search-result.search-result--person.search-result--occlusion-enabled.ember-view > div > div.search-result__actions > div.ember-view > button')
                     if current.text == 'Установить контакт':
-                        hello = current.click()
-                        print(current.text)
+                        current.click()
                         sleep(1)
                         driver.find_element_by_css_selector(
                             'button.ml1.artdeco-button.artdeco-button--3.artdeco-button--primary.ember-view').click()
@@ -70,7 +68,7 @@ def send_message(start_user: int, username_user, password_user, message):
     start_user = int(start_user)
     driver_path = os.path.join('chromedriver.exe')
     driver = webdriver.Chrome(driver_path)
-    driver.set_window_size(1280, 720)
+    driver.set_window_size(1600, 900)
     driver.get(
         'https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin')
 
@@ -91,7 +89,7 @@ def send_message(start_user: int, username_user, password_user, message):
 
     for item in range(0, count_contacts//40 + 1):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
-        sleep(1.5)
+        sleep(1)
 
     ul_a = driver.find_element_by_xpath(
         '//*[@class="mn-connections mb4 artdeco-card ember-view"]/ul')
@@ -121,8 +119,6 @@ def send_message(start_user: int, username_user, password_user, message):
         li_c.find_element_by_xpath(
             '//*[@class="msg-overlay-bubble-header__control js-msg-close artdeco-button artdeco-button--circle artdeco-button--inverse artdeco-button--1 artdeco-button--tertiary ember-view"]').click()
         iterator += 1
-    sleep(10)
-
     driver.close()
 
 
@@ -133,25 +129,3 @@ def reply_on_invites(username_user, password_user):
     for invite in invitationals:
         linked.reply_invitation(invitation_entity_urn=invite['entityUrn'],
                                 invitation_shared_secret=invite['sharedSecret'])
-
-
-# send_message(3, 'alexander.ivanov.289@gmail.com', 'Domestos03', '''Добрый день!
-
-# Меня зовут Никита, я работаю в Freshman Digital
-
-# Мы продвигаем бизнес-блогеров и увеличиваем выручку онлайн-бизнеса посредством маркетинга и рекламы. Для нас важно, чтобы клиенты получали услуги с хорошим соотношением цены к качеству, поэтому уже полтора года стабильно приносим им прибыли.
-
-# Я знаю, что Вы уже поняли, что это рассылка, но если Вы планируете рекламировать свой бизнес или продвигать личный бренд не боясь, что случайно попадёте на безответственных исполнителей, а то и на дилетантов, то обратите внимание на наше коммерческое предложение: http://freshmansmm.com/offer
-
-# В конце короткой презентации, помимо предложения, видов услуг и кейсов есть контакты, по которым я с радостью Вас проконсультирую в течении часа после того, как Вы напишете.
-
-# Если же Вы хотите продвигать личный бренд в Instagram, то вот предложение для Вас: http://freshmansmm.com
-
-# Спасибо, что Вам хватило терпения дочитать это сообщение в мире, где реклама на каждом шагу.
-
-# Пишите, звоните, я всегда на связи.''')
-
-# Linkedin = Linkedin('mup.folesta@gmail.com', 'Nikita777')
-# reply_on_invites(Linkedin)
-
-# send_invites('ua', 'Programmer', 'mup.folesta@gmail.com', 'Nikita777')
